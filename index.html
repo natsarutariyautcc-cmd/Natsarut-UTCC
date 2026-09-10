@@ -33,7 +33,8 @@
           <h3>รายการไฟล์ PDF</h3>
           <div id="fileList">กำลังโหลด...</div>
           <br>
-          <a href="https://github.com/natsarutariyautcc-cmd/Natsarut-UTCC/upload/main/files" class="btn" target="_blank" style="width:100%; text-align:center;">+ อัปโหลดไฟล์ PDF</a>
+          <!-- ลิงก์อัปโหลดแก้ไขตามที่คุณต้องการ -->
+          <a href="https://github.com/natsarutariyautcc-cmd/Natsarut-UTCC/tree/main/files" class="btn" target="_blank" style="width:100%; text-align:center;">+ อัปโหลดไฟล์ PDF</a>
         </aside>
         <section>
           <h3 id="currentFile">เลือกไฟล์เพื่อดู</h3>
@@ -65,13 +66,11 @@
     function viewPdf(url, name) {
       document.getElementById('currentFile').innerText = name;
       
-      // แปลงเป็น Raw URL เพื่อเลี่ยงการบังคับดาวน์โหลด
       const rawUrl = url.replace('api.github.com/repos/', 'raw.githubusercontent.com/')
                         .replace('/contents/', '/')
                         .split('?')[0];
 
       const viewer = document.getElementById('pdfViewer');
-      // ใช้ Google Docs Viewer เพื่อแสดงผลในหน้าเว็บ
       viewer.src = `https://docs.google.com/viewer?url=${encodeURIComponent(rawUrl)}&embedded=true`;
       viewer.hidden = false;
       
