@@ -5,102 +5,96 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI101 | เว็บไซต์ส่งงาน</title>
   <style>
-    :root { --blue: #2563eb; --blue-dark: #1d4ed8; --bg: #f8fafc; --text: #1e293b; --border: #e2e8f0; }
-    body { font-family: sans-serif; background: var(--bg); color: var(--text); margin: 0; line-height: 1.6; }
-    header { background: #fff; border-bottom: 1px solid var(--border); padding: 1rem 0; }
-    nav { width: 90%; max-width: 1000px; margin: auto; display: flex; justify-content: space-between; align-items: center; }
-    .nav-btn { background: none; border: none; cursor: pointer; font-weight: bold; padding: 10px; }
-    main { width: 90%; max-width: 1000px; margin: 2rem auto; min-height: 60vh; }
+    :root { --blue: #2563eb; --blue-dark: #1d4ed8; --blue-light: #dbeafe; --bg: #f1f5f9; --white: #ffffff; --text: #172033; --muted: #64748b; --border: #dbe4f0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: sans-serif; line-height: 1.6; }
+    header { background: linear-gradient(135deg, #1e3a8a, #2563eb); color: white; padding: 1.5rem 0; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    .navbar { width: min(1100px, 92%); margin: auto; display: flex; justify-content: space-between; align-items: center; }
+    .nav-menu { display: flex; gap: 20px; list-style: none; }
+    .nav-button { background: rgba(255,255,255,0.1); border: 0; color: white; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+    .nav-button:hover { background: rgba(255,255,255,0.3); }
+    main { width: min(1100px, 92%); margin: 2rem auto; min-height: 70vh; }
     .page { display: none; } .page.active { display: block; }
-    .hero { text-align: center; padding: 4rem 1rem; }
-    .btn { background: var(--blue); color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; display: inline-block; font-weight: bold; }
+    .hero { text-align: center; padding: 4rem 1rem; background: var(--white); border-radius: 1rem; border: 1px solid var(--border); }
+    .btn { background: var(--blue); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; display: inline-block; margin-top: 1rem; font-weight: bold; }
     .btn:hover { background: var(--blue-dark); }
-    .container { display: grid; grid-template-columns: 300px 1fr; gap: 2rem; }
-    .file-list { list-style: none; padding: 0; }
-    .file-item { background: white; padding: 10px; margin-bottom: 8px; border: 1px solid var(--border); border-radius: 6px; display: flex; justify-content: space-between; align-items: center; }
-    .viewer { width: 100%; height: 600px; border: 1px solid var(--border); background: white; margin-top: 10px; }
-    @media (max-width: 768px) { .container { grid-template-columns: 1fr; } }
+    .layout { display: grid; grid-template-columns: 320px 1fr; gap: 2rem; }
+    .panel { background: var(--white); padding: 20px; border-radius: 12px; border: 1px solid var(--border); }
+    .file-item { display: flex; align-items: center; justify-content: space-between; padding: 10px; margin-bottom: 8px; background: #f8fafc; border-radius: 6px; border: 1px solid var(--border); }
+    .pdf-viewer { width: 100%; height: 600px; border: 1px solid var(--border); border-radius: 8px; background: #e2e8f0; }
+    @media (max-width: 768px) { .layout { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
-
-<header>
-  <nav>
-    <h2>AI101</h2>
-    <div>
-      <button class="nav-btn" onclick="showPage('home')">Home</button>
-      <button class="nav-btn" onclick="showPage('work')">ส่งงาน</button>
+  <header>
+    <div class="navbar">
+      <h2>AI101</h2>
+      <ul class="nav-menu">
+        <li><button class="nav-button" onclick="showPage('home')">Home</button></li>
+        <li><button class="nav-button" onclick="showPage('work')">ส่งงาน</button></li>
+      </ul>
     </div>
-  </nav>
-</header>
+  </header>
 
-<main>
-  <section id="home" class="page active">
-    <div class="hero">
-      <h1>ยินดีต้อนรับสู่เว็บไซต์ส่งงาน</h1>
-      <button class="btn" onclick="showPage('work')">ดูไฟล์ส่งงาน</button>
-    </div>
-  </section>
+  <main>
+    <section id="home" class="page active">
+      <div class="hero">
+        <h1>ยินดีต้อนรับสู่เว็บไซต์ส่งงาน</h1>
+        <button class="btn" onclick="showPage('work')">ดูไฟล์ส่งงาน</button>
+      </div>
+    </section>
 
-  <section id="work" class="page">
-    <div class="container">
-      <aside>
-        <h3>รายการไฟล์ PDF</h3>
-        <ul id="fileList" class="file-list"><li>กำลังโหลด...</li></ul>
-        <!-- เปลี่ยนลิงก์ให้เข้าโฟลเดอร์โดยตรง เพื่อเลี่ยงปัญหา 404 -->
-        <a id="uploadBtn" href="https://github.com/natsarutariyautcc-cmd/websiteNatsarutAI101/tree/main/files" class="btn" target="_blank" style="width:100%; text-align:center;">+ ไปที่หน้าอัปโหลดไฟล์</a>
-      </aside>
-      <section>
-        <h3 id="fileName">เลือกไฟล์จากรายการ</h3>
-        <iframe id="pdfViewer" class="viewer" hidden></iframe>
-        <a id="openTab" href="#" target="_blank" hidden style="display:block; margin-top:10px;">เปิดไฟล์ในแท็บใหม่ ↗</a>
-      </section>
-    </div>
-  </section>
-</main>
+    <section id="work" class="page">
+      <div class="layout">
+        <aside class="panel">
+          <h3>รายการไฟล์ PDF</h3>
+          <div id="fileList" style="margin: 1rem 0;">กำลังโหลด...</div>
+          <a href="https://github.com/natsarutariyautcc-cmd/websiteNatsarutAI101/tree/main/files" class="btn" target="_blank" style="width:100%; text-align:center;">+ อัปโหลดไฟล์ PDF</a>
+        </aside>
+        <section class="panel">
+          <h3 id="currentFile">เลือกไฟล์เพื่อแสดงผล</h3>
+          <iframe id="pdfViewer" class="pdf-viewer" src="" hidden></iframe>
+          <a id="openNewTab" href="#" target="_blank" hidden style="display:block; margin-top:10px;">เปิดในแท็บใหม่ ↗</a>
+        </section>
+      </div>
+    </section>
+  </main>
 
-<script>
-  function showPage(id) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-  }
-
-  async function loadFiles() {
-    const list = document.getElementById('fileList');
-    try {
-      // ใช้ URL ของ GitHub API โดยตรง
-      const res = await fetch(`https://api.github.com/repos/natsarutariyautcc-cmd/websiteNatsarutAI101/contents/files`);
-      const data = await res.json();
-      list.innerHTML = '';
-      
-      if (Array.isArray(data)) {
-        data.filter(f => f.name.toLowerCase().endsWith('.pdf')).forEach(f => {
-          const li = document.createElement('li');
-          li.className = 'file-item';
-          li.innerHTML = `
-            <button onclick="viewPdf('${f.download_url}', '${f.name}')" style="border:none; background:none; cursor:pointer; font-weight:bold;">${f.name}</button>
-            <a href="${f.html_url}" target="_blank" style="font-size:0.8rem;">จัดการ</a>
-          `;
-          list.appendChild(li);
-        });
-      }
-    } catch (e) {
-      list.innerHTML = '<li>โหลดไฟล์ไม่สำเร็จ (ตรวจสอบชื่อโฟลเดอร์)</li>';
+  <script>
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
     }
-  }
 
-  function viewPdf(url, name) {
-    document.getElementById('fileName').innerText = name;
-    const viewer = document.getElementById('pdfViewer');
-    viewer.src = url;
-    viewer.hidden = false;
-    const tab = document.getElementById('openTab');
-    tab.href = url;
-    tab.hidden = false;
-  }
+    async function fetchFiles() {
+      const list = document.getElementById('fileList');
+      try {
+        const res = await fetch('https://api.github.com/repos/natsarutariyautcc-cmd/websiteNatsarutAI101/contents/files');
+        const files = await res.json();
+        list.innerHTML = '';
+        files.filter(f => f.name.endsWith('.pdf')).forEach(f => {
+          const div = document.createElement('div');
+          div.className = 'file-item';
+          div.innerHTML = `
+            <button onclick="viewPdf('${f.download_url}', '${f.name}')" style="border:none; background:none; cursor:pointer; color:var(--blue); font-weight:bold;">${f.name}</button>
+            <a href="${f.html_url}" target="_blank" style="font-size:0.8rem; color:var(--muted);">จัดการ</a>
+          `;
+          list.appendChild(div);
+        });
+      } catch (e) { list.innerHTML = 'ไม่พบข้อมูลไฟล์'; }
+    }
 
-  loadFiles();
-</script>
+    function viewPdf(url, name) {
+      document.getElementById('currentFile').innerText = name;
+      const viewer = document.getElementById('pdfViewer');
+      viewer.src = url;
+      viewer.hidden = false;
+      const link = document.getElementById('openNewTab');
+      link.href = url;
+      link.hidden = false;
+    }
 
+    fetchFiles();
+  </script>
 </body>
 </html>
