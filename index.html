@@ -3,44 +3,56 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI101 | เว็บไซต์ส่งงาน</title>
+  <title>Natsarut-UTCC | Dashboard</title>
   <style>
-    :root { --blue: #2563eb; --bg: #f8fafc; --text: #1e293b; --border: #e2e8f0; }
-    body { font-family: sans-serif; background: var(--bg); color: var(--text); margin: 0; }
-    header { background: #1e3a8a; color: white; padding: 1.5rem 0; text-align: center; }
+    :root { --glass: rgba(255, 255, 255, 0.9); }
+    body { 
+      font-family: sans-serif; 
+      margin: 0; 
+      min-height: 100vh;
+      /* แบล็คกราวด์อวกาศสวยๆ */
+      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                  url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+    header { color: white; padding: 2rem 0; text-align: center; backdrop-filter: blur(5px); }
     main { width: min(1000px, 92%); margin: 2rem auto; }
-    .hero { text-align: center; padding: 3rem 1rem; background: white; border-radius: 1rem; border: 1px solid var(--border); }
-    .btn { background: var(--blue); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; display: inline-block; font-weight: bold; border: none; cursor: pointer; }
+    .hero { text-align: center; padding: 3rem 1rem; background: var(--glass); border-radius: 1.5rem; backdrop-filter: blur(15px); }
+    .btn { background: #2563eb; color: white; padding: 12px 24px; border-radius: 12px; text-decoration: none; display: inline-block; font-weight: bold; border: none; cursor: pointer; transition: 0.3s; }
+    .btn:hover { background: #1d4ed8; transform: scale(1.05); }
     .layout { display: grid; grid-template-columns: 300px 1fr; gap: 2rem; }
     @media (max-width: 768px) { .layout { grid-template-columns: 1fr; } }
-    .file-item { display: flex; justify-content: space-between; padding: 10px; background: white; margin-bottom: 8px; border: 1px solid var(--border); border-radius: 6px; }
-    .pdf-viewer { width: 100%; height: 600px; border: 1px solid var(--border); background: white; }
+    .file-item { display: flex; justify-content: space-between; padding: 12px; background: rgba(255,255,255,0.8); margin-bottom: 8px; border-radius: 10px; backdrop-filter: blur(5px); }
+    .pdf-viewer { width: 100%; height: 600px; border-radius: 1rem; border: none; background: white; }
+    .glass-box { background: var(--glass); padding: 1.5rem; border-radius: 1.5rem; backdrop-filter: blur(15px); }
   </style>
 </head>
 <body>
-  <header><h1>AI101 ส่งงาน</h1></header>
+  <header><h1>Natsarut-UTCC Dashboard</h1></header>
   <main>
     <section id="home" class="page active">
       <div class="hero">
         <h1>ยินดีต้อนรับ</h1>
+        <p>ระบบจัดการเอกสารดิจิทัลส่วนตัว</p>
         <button class="btn" onclick="document.getElementById('home').style.display='none'; document.getElementById('work').style.display='block';">ดูไฟล์ส่งงาน</button>
       </div>
     </section>
 
     <section id="work" class="page" style="display:none;">
       <div class="layout">
-        <aside>
+        <aside class="glass-box">
           <h3>รายการไฟล์ PDF</h3>
           <div id="fileList">กำลังโหลด...</div>
           <br>
-          <!-- ลิงก์อัปโหลดแก้ไขตามที่คุณต้องการ -->
           <a href="https://github.com/natsarutariyautcc-cmd/Natsarut-UTCC/tree/main/files" class="btn" target="_blank" style="width:100%; text-align:center;">+ อัปโหลดไฟล์ PDF</a>
         </aside>
-        <section>
+        <section class="glass-box">
           <h3 id="currentFile">เลือกไฟล์เพื่อดู</h3>
           <iframe id="pdfViewer" class="pdf-viewer" hidden></iframe>
           <br>
-          <a id="openNewTab" href="#" target="_blank" hidden>เปิดไฟล์ในแท็บใหม่ ↗</a>
+          <a id="openNewTab" href="#" target="_blank" hidden style="color:#2563eb; font-weight:bold;">เปิดไฟล์ในแท็บใหม่ ↗</a>
         </section>
       </div>
     </section>
@@ -57,7 +69,6 @@
           list.innerHTML += `
             <div class="file-item">
               <span style="cursor:pointer; color:#2563eb; font-weight:bold;" onclick="viewPdf('${f.download_url}', '${f.name}')">${f.name}</span>
-              <a href="${f.html_url}" target="_blank" style="font-size:0.8rem;">จัดการ</a>
             </div>`;
         });
       } catch (e) { list.innerHTML = 'ไม่พบไฟล์'; }
@@ -65,20 +76,16 @@
 
     function viewPdf(url, name) {
       document.getElementById('currentFile').innerText = name;
-      
       const rawUrl = url.replace('api.github.com/repos/', 'raw.githubusercontent.com/')
                         .replace('/contents/', '/')
                         .split('?')[0];
-
       const viewer = document.getElementById('pdfViewer');
       viewer.src = `https://docs.google.com/viewer?url=${encodeURIComponent(rawUrl)}&embedded=true`;
       viewer.hidden = false;
-      
       const link = document.getElementById('openNewTab');
       link.href = rawUrl;
       link.hidden = false;
     }
-
     fetchFiles();
   </script>
 </body>
