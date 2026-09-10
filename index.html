@@ -16,11 +16,11 @@
       background-position: center;
       background-attachment: fixed;
     }
-    header { color: white; padding: 2rem 0; text-align: center; }
-    main { width: min(1000px, 92%); margin: 2rem auto; }
+    header { color: white; padding: 1.5rem 0; text-align: center; }
+    /* ขยายความกว้างรวมของหน้าจอ */
+    main { width: min(1200px, 95%); margin: 1rem auto; }
     .hero { text-align: center; padding: 3rem 1rem; background: var(--glass); border-radius: 1.5rem; backdrop-filter: blur(15px); }
     
-    /* แก้ไขปุ่มให้อยู่ในกรอบพอดี */
     .btn { 
       background: #2563eb; color: white; padding: 12px 0; border-radius: 10px; 
       text-decoration: none; display: block; font-weight: bold; border: none; 
@@ -28,11 +28,15 @@
     }
     .btn:hover { background: #1d4ed8; transform: scale(1.02); }
     
-    .layout { display: grid; grid-template-columns: 300px 1fr; gap: 2rem; }
+    /* ปรับ Layout ให้ PDF กินพื้นที่มากขึ้น */
+    .layout { display: grid; grid-template-columns: 280px 1fr; gap: 1.5rem; }
     @media (max-width: 768px) { .layout { grid-template-columns: 1fr; } }
-    .file-item { display: flex; justify-content: space-between; padding: 12px; background: rgba(255,255,255,0.8); margin-bottom: 8px; border-radius: 10px; backdrop-filter: blur(5px); }
-    .pdf-viewer { width: 100%; height: 600px; border-radius: 1rem; border: none; background: white; }
-    .glass-box { background: var(--glass); padding: 1.5rem; border-radius: 1.5rem; backdrop-filter: blur(15px); }
+    
+    .file-item { display: flex; justify-content: space-between; padding: 10px; background: rgba(255,255,255,0.8); margin-bottom: 8px; border-radius: 10px; backdrop-filter: blur(5px); }
+    
+    /* ขยาย PDF Viewer ให้สูงและกว้างขึ้น */
+    .pdf-viewer { width: 100%; height: 75vh; border-radius: 1rem; border: none; background: white; }
+    .glass-box { background: var(--glass); padding: 1.2rem; border-radius: 1.5rem; backdrop-filter: blur(15px); }
   </style>
 </head>
 <body>
@@ -52,7 +56,6 @@
           <h3 style="margin-top:0;">รายการไฟล์ PDF</h3>
           <div id="fileList">กำลังโหลด...</div>
           <br>
-          <!-- ปุ่มอัปโหลดที่ปรับขนาดให้พอดี 100% ของความกว้างช่อง aside -->
           <a href="https://github.com/natsarutariyautcc-cmd/Natsarut-UTCC/tree/main/files" class="btn" target="_blank">+ อัปโหลดไฟล์ PDF</a>
         </aside>
         <section class="glass-box">
