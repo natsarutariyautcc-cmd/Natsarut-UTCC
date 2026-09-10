@@ -65,13 +65,13 @@
     function viewPdf(url, name) {
       document.getElementById('currentFile').innerText = name;
       
-      // แปลง URL จาก API ให้เป็น Raw URL เพื่อป้องกันการบังคับดาวน์โหลด
+      // แปลงเป็น Raw URL เพื่อเลี่ยงการบังคับดาวน์โหลด
       const rawUrl = url.replace('api.github.com/repos/', 'raw.githubusercontent.com/')
                         .replace('/contents/', '/')
                         .split('?')[0];
 
       const viewer = document.getElementById('pdfViewer');
-      // ใช้ Google Docs Viewer แสดงผลในหน้าเว็บ
+      // ใช้ Google Docs Viewer เพื่อแสดงผลในหน้าเว็บ
       viewer.src = `https://docs.google.com/viewer?url=${encodeURIComponent(rawUrl)}&embedded=true`;
       viewer.hidden = false;
       
