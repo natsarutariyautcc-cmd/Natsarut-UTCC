@@ -2,85 +2,78 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI101 | เว็บไซต์ส่งงาน</title>
+  <title>Natsarut-UTCC | Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    :root { --blue: #2563eb; --bg: #f8fafc; --text: #1e293b; --border: #e2e8f0; }
-    body { font-family: sans-serif; background: var(--bg); color: var(--text); margin: 0; }
-    header { background: #1e3a8a; color: white; padding: 1.5rem 0; text-align: center; }
-    main { width: min(1000px, 92%); margin: 2rem auto; }
-    .hero { text-align: center; padding: 3rem 1rem; background: white; border-radius: 1rem; border: 1px solid var(--border); }
-    .btn { background: var(--blue); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; display: inline-block; font-weight: bold; border: none; cursor: pointer; }
-    .layout { display: grid; grid-template-columns: 300px 1fr; gap: 2rem; }
-    @media (max-width: 768px) { .layout { grid-template-columns: 1fr; } }
-    .file-item { display: flex; justify-content: space-between; padding: 10px; background: white; margin-bottom: 8px; border: 1px solid var(--border); border-radius: 6px; }
-    .pdf-viewer { width: 100%; height: 600px; border: 1px solid var(--border); background: white; }
+    body { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop'); background-size: cover; background-attachment: fixed; min-height: 100vh; }
+    .glass { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(15px); }
   </style>
 </head>
-<body>
-  <header><h1>AI101 ส่งงาน</h1></header>
-  <main>
-    <section id="home" class="page active">
-      <div class="hero">
-        <h1>ยินดีต้อนรับ</h1>
-        <button class="btn" onclick="document.getElementById('home').style.display='none'; document.getElementById('work').style.display='block';">ดูไฟล์ส่งงาน</button>
+<body class="p-4 md:p-8">
+
+<header class="max-w-6xl mx-auto mb-8 text-white flex justify-between items-end">
+  <h1 class="text-4xl font-black italic">Natsarut-UTCC</h1>
+  <button onclick="addSubject()" class="bg-green-600 hover:bg-green-700 px-6 py-2 rounded-full font-bold transition">+ เพิ่มวิชาใหม่</button>
+</header>
+
+<main class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6">
+  <!-- รายการวิชา -->
+  <div id="subjectList" class="md:col-span-1 space-y-4">
+    <!-- วิชาจะถูกโหลดมาแสดงที่นี่ -->
+  </div>
+
+  <!-- แสดงไฟล์ในวิชานั้นๆ -->
+  <div class="md:col-span-3 glass p-6 rounded-3xl shadow-2xl">
+    <div id="fileArea" class="hidden">
+      <h2 id="subjectTitle" class="text-2xl font-bold mb-4 text-blue-900">ชื่อวิชา</h2>
+      <div id="fileList" class="grid grid-cols-1 gap-2 mb-6"></div>
+      <a id="uploadLink" href="#" target="_blank" class="bg-blue-600 text-white px-6 py-2 rounded-xl font-bold hover:bg-blue-700">⬆ อัปโหลดไฟล์ในวิชานี้</a>
+    </div>
+    <div id="welcome" class="text-center py-20 text-gray-500">เลือกวิชาจากด้านซ้ายเพื่อดูไฟล์</div>
+  </div>
+</main>
+
+<script>
+  const GITHUB_API = 'https://api.github.com/repos/natsarutariyautcc-cmd/Natsarut-UTCC/contents/files';
+
+  async function fetchSubjects() {
+    const res = await fetch(GITHUB_API);
+    const data = await res.json();
+    const subjectList = document.getElementById('subjectList');
+    subjectList.innerHTML = '';
+    
+    data.filter(item => item.type === 'dir').forEach(dir => {
+      subjectList.innerHTML += `
+        <div class="glass p-4 rounded-2xl cursor-pointer hover:bg-blue-50 transition border-l-4 border-blue-500" 
+             onclick="loadFiles('${dir.name}')">
+          <p class="font-bold text-gray-800">${dir.name}</p>
+        </div>`;
+    });
+  }
+
+  async function loadFiles(subject) {
+    document.getElementById('welcome').classList.add('hidden');
+    document.getElementById('fileArea').classList.remove('hidden');
+    document.getElementById('subjectTitle').innerText = subject;
+    document.getElementById('uploadLink').href = `https://github.com/natsarutariyautcc-cmd/Natsarut-UTCC/upload/main/files/${subject}`;
+    
+    const res = await fetch(`${GITHUB_API}/${subject}`);
+    const files = await res.json();
+    const list = document.getElementById('fileList');
+    list.innerHTML = files.filter(f => f.name.endsWith('.pdf')).map(f => `
+      <div class="p-3 bg-white border rounded-lg flex justify-between">
+        <span>${f.name}</span>
+        <a href="${f.download_url}" target="_blank" class="text-blue-600 font-bold">เปิดอ่าน</a>
       </div>
-    </section>
+    `).join('');
+  }
 
-    <section id="work" class="page" style="display:none;">
-      <div class="layout">
-        <aside>
-          <h3>รายการไฟล์ PDF</h3>
-          <div id="fileList">กำลังโหลด...</div>
-          <br>
-          <a href="https://github.com/natsarutariyautcc-cmd/Natsarut-UTCC/upload/main/files" class="btn" target="_blank" style="width:100%; text-align:center;">+ อัปโหลดไฟล์ PDF</a>
-        </aside>
-        <section>
-          <h3 id="currentFile">เลือกไฟล์เพื่อดู</h3>
-          <iframe id="pdfViewer" class="pdf-viewer" hidden></iframe>
-          <br>
-          <a id="openNewTab" href="#" target="_blank" hidden>เปิดไฟล์ในแท็บใหม่ ↗</a>
-        </section>
-      </div>
-    </section>
-  </main>
+  function addSubject() {
+    const name = prompt("ระบุชื่อวิชาใหม่:");
+    if(name) window.open(`https://github.com/natsarutariyautcc-cmd/Natsarut-UTCC/new/main/files/${name}?filename=.keep`);
+  }
 
-  <script>
-    async function fetchFiles() {
-      const list = document.getElementById('fileList');
-      try {
-        const res = await fetch('https://api.github.com/repos/natsarutariyautcc-cmd/Natsarut-UTCC/contents/files');
-        const files = await res.json();
-        list.innerHTML = '';
-        files.filter(f => f.name.toLowerCase().endsWith('.pdf')).forEach(f => {
-          list.innerHTML += `
-            <div class="file-item">
-              <span style="cursor:pointer; color:#2563eb; font-weight:bold;" onclick="viewPdf('${f.download_url}', '${f.name}')">${f.name}</span>
-              <a href="${f.html_url}" target="_blank" style="font-size:0.8rem;">จัดการ</a>
-            </div>`;
-        });
-      } catch (e) { list.innerHTML = 'ไม่พบไฟล์'; }
-    }
-
-    function viewPdf(url, name) {
-      document.getElementById('currentFile').innerText = name;
-      
-      // แปลงเป็น Raw URL เพื่อเลี่ยงการบังคับดาวน์โหลด
-      const rawUrl = url.replace('api.github.com/repos/', 'raw.githubusercontent.com/')
-                        .replace('/contents/', '/')
-                        .split('?')[0];
-
-      const viewer = document.getElementById('pdfViewer');
-      // ใช้ Google Docs Viewer เพื่อแสดงผลในหน้าเว็บ
-      viewer.src = `https://docs.google.com/viewer?url=${encodeURIComponent(rawUrl)}&embedded=true`;
-      viewer.hidden = false;
-      
-      const link = document.getElementById('openNewTab');
-      link.href = rawUrl;
-      link.hidden = false;
-    }
-
-    fetchFiles();
-  </script>
+  fetchSubjects();
+</script>
 </body>
 </html>
