@@ -10,18 +10,24 @@
       font-family: sans-serif; 
       margin: 0; 
       min-height: 100vh;
-      /* แบล็คกราวด์อวกาศสวยๆ */
       background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
                   url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop');
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
     }
-    header { color: white; padding: 2rem 0; text-align: center; backdrop-filter: blur(5px); }
+    header { color: white; padding: 2rem 0; text-align: center; }
     main { width: min(1000px, 92%); margin: 2rem auto; }
     .hero { text-align: center; padding: 3rem 1rem; background: var(--glass); border-radius: 1.5rem; backdrop-filter: blur(15px); }
-    .btn { background: #2563eb; color: white; padding: 12px 24px; border-radius: 12px; text-decoration: none; display: inline-block; font-weight: bold; border: none; cursor: pointer; transition: 0.3s; }
-    .btn:hover { background: #1d4ed8; transform: scale(1.05); }
+    
+    /* แก้ไขปุ่มให้อยู่ในกรอบพอดี */
+    .btn { 
+      background: #2563eb; color: white; padding: 12px 0; border-radius: 10px; 
+      text-decoration: none; display: block; font-weight: bold; border: none; 
+      cursor: pointer; transition: 0.3s; width: 100%; text-align: center; box-sizing: border-box;
+    }
+    .btn:hover { background: #1d4ed8; transform: scale(1.02); }
+    
     .layout { display: grid; grid-template-columns: 300px 1fr; gap: 2rem; }
     @media (max-width: 768px) { .layout { grid-template-columns: 1fr; } }
     .file-item { display: flex; justify-content: space-between; padding: 12px; background: rgba(255,255,255,0.8); margin-bottom: 8px; border-radius: 10px; backdrop-filter: blur(5px); }
@@ -36,20 +42,21 @@
       <div class="hero">
         <h1>ยินดีต้อนรับ</h1>
         <p>ระบบจัดการเอกสารดิจิทัลส่วนตัว</p>
-        <button class="btn" onclick="document.getElementById('home').style.display='none'; document.getElementById('work').style.display='block';">ดูไฟล์ส่งงาน</button>
+        <button class="btn" style="width: auto; padding: 12px 24px; margin: 0 auto;" onclick="document.getElementById('home').style.display='none'; document.getElementById('work').style.display='block';">ดูไฟล์ส่งงาน</button>
       </div>
     </section>
 
     <section id="work" class="page" style="display:none;">
       <div class="layout">
         <aside class="glass-box">
-          <h3>รายการไฟล์ PDF</h3>
+          <h3 style="margin-top:0;">รายการไฟล์ PDF</h3>
           <div id="fileList">กำลังโหลด...</div>
           <br>
-          <a href="https://github.com/natsarutariyautcc-cmd/Natsarut-UTCC/tree/main/files" class="btn" target="_blank" style="width:100%; text-align:center;">+ อัปโหลดไฟล์ PDF</a>
+          <!-- ปุ่มอัปโหลดที่ปรับขนาดให้พอดี 100% ของความกว้างช่อง aside -->
+          <a href="https://github.com/natsarutariyautcc-cmd/Natsarut-UTCC/tree/main/files" class="btn" target="_blank">+ อัปโหลดไฟล์ PDF</a>
         </aside>
         <section class="glass-box">
-          <h3 id="currentFile">เลือกไฟล์เพื่อดู</h3>
+          <h3 id="currentFile" style="margin-top:0;">เลือกไฟล์เพื่อดู</h3>
           <iframe id="pdfViewer" class="pdf-viewer" hidden></iframe>
           <br>
           <a id="openNewTab" href="#" target="_blank" hidden style="color:#2563eb; font-weight:bold;">เปิดไฟล์ในแท็บใหม่ ↗</a>
@@ -68,7 +75,7 @@
         files.filter(f => f.name.toLowerCase().endsWith('.pdf')).forEach(f => {
           list.innerHTML += `
             <div class="file-item">
-              <span style="cursor:pointer; color:#2563eb; font-weight:bold;" onclick="viewPdf('${f.download_url}', '${f.name}')">${f.name}</span>
+              <span style="cursor:pointer; color:#2563eb; font-weight:bold; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" onclick="viewPdf('${f.download_url}', '${f.name}')">${f.name}</span>
             </div>`;
         });
       } catch (e) { list.innerHTML = 'ไม่พบไฟล์'; }
