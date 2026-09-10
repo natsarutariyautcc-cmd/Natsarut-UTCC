@@ -7,315 +7,47 @@
 
   <style>
     :root {
-      --blue: #2563eb;
-      --blue-dark: #1d4ed8;
-      --blue-light: #dbeafe;
-      --bg: #f1f5f9;
-      --white: #ffffff;
-      --text: #172033;
-      --muted: #64748b;
-      --border: #dbe4f0;
-      --danger: #b91c1c;
+      --blue: #2563eb; --blue-dark: #1d4ed8; --blue-light: #dbeafe;
+      --bg: #f1f5f9; --white: #ffffff; --text: #172033;
+      --muted: #64748b; --border: #dbe4f0; --danger: #b91c1c;
     }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: Arial, "Noto Sans Thai", sans-serif;
-      line-height: 1.6;
-    }
-
-    header {
-      background: linear-gradient(135deg, #1e3a8a, #2563eb);
-      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.16);
-      color: white;
-    }
-
-    .navbar {
-      align-items: center;
-      display: flex;
-      gap: 20px;
-      justify-content: space-between;
-      margin: auto;
-      min-height: 72px;
-      width: min(1100px, 92%);
-    }
-
-    .brand {
-      font-size: 1.25rem;
-      font-weight: 800;
-    }
-
-    .nav-menu {
-      display: flex;
-      gap: 8px;
-      list-style: none;
-    }
-
-    .nav-button {
-      background: transparent;
-      border: 0;
-      border-radius: 8px;
-      color: white;
-      cursor: pointer;
-      font-size: 1rem;
-      padding: 10px 16px;
-      transition: 0.2s;
-    }
-
-    .nav-button:hover,
-    .nav-button.active {
-      background: rgba(255, 255, 255, 0.2);
-    }
-
-    main {
-      margin: auto;
-      min-height: 80vh;
-      padding: 42px 0 70px;
-      width: min(1100px, 92%);
-    }
-
-    .page {
-      display: none;
-    }
-
-    .page.active {
-      display: block;
-    }
-
-    .hero {
-      background: linear-gradient(135deg, #dbeafe, #eff6ff);
-      border: 1px solid #bfdbfe;
-      border-radius: 20px;
-      padding: 72px 25px;
-      text-align: center;
-    }
-
-    .hero h1 {
-      color: #1e3a8a;
-      font-size: clamp(2rem, 6vw, 3.6rem);
-      margin-bottom: 14px;
-    }
-
-    .hero p {
-      color: #475569;
-      font-size: 1.08rem;
-      margin: auto;
-      max-width: 650px;
-    }
-
-    .primary-button,
-    .upload-button {
-      background: var(--blue);
-      border: 0;
-      border-radius: 9px;
-      color: white;
-      cursor: pointer;
-      display: inline-block;
-      font-size: 1rem;
-      font-weight: bold;
-      margin-top: 25px;
-      padding: 12px 20px;
-      text-decoration: none;
-      transition: 0.2s;
-    }
-
-    .primary-button:hover,
-    .upload-button:hover {
-      background: var(--blue-dark);
-      transform: translateY(-2px);
-    }
-
-    .page-title {
-      font-size: 2rem;
-      margin-bottom: 5px;
-    }
-
-    .page-description {
-      color: var(--muted);
-      margin-bottom: 22px;
-    }
-
-    .assignment-layout {
-      align-items: start;
-      display: grid;
-      gap: 22px;
-      grid-template-columns: 320px 1fr;
-    }
-
-    .panel {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
-      padding: 20px;
-    }
-
-    .panel h2 {
-      font-size: 1.15rem;
-      margin-bottom: 14px;
-    }
-
-    .file-list {
-      display: grid;
-      gap: 10px;
-      list-style: none;
-    }
-
-    .file-item {
-      align-items: stretch;
-      display: flex;
-      gap: 7px;
-    }
-
-    .file-button {
-      background: #f8fafc;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: #1e3a8a;
-      cursor: pointer;
-      flex: 1;
-      font-size: 0.92rem;
-      min-width: 0;
-      overflow-wrap: anywhere;
-      padding: 11px;
-      text-align: left;
-      transition: 0.2s;
-    }
-
-    .file-button:hover,
-    .file-button.active {
-      background: var(--blue-light);
-      border-color: #60a5fa;
-    }
-
-    .manage-button {
-      align-items: center;
-      background: #eff6ff;
-      border: 1px solid #bfdbfe;
-      border-radius: 8px;
-      color: #1d4ed8;
-      display: flex;
-      font-size: 0.8rem;
-      font-weight: bold;
-      justify-content: center;
-      min-width: 58px;
-      padding: 0 8px;
-      text-decoration: none;
-      transition: 0.2s;
-    }
-
-    .manage-button:hover {
-      background: #dbeafe;
-    }
-
-    .upload-button {
-      text-align: center;
-      width: 100%;
-    }
-
-    .folder-button {
-      color: var(--blue);
-      display: block;
-      font-size: 0.88rem;
-      font-weight: bold;
-      margin-top: 12px;
-      text-align: center;
-      text-decoration: none;
-    }
-
-    .folder-button:hover {
-      text-decoration: underline;
-    }
-
-    .hint {
-      color: var(--muted);
-      font-size: 0.82rem;
-      margin-top: 12px;
-    }
-
-    .status {
-      color: var(--muted);
-      font-size: 0.9rem;
-      padding: 10px 0;
-    }
-
-    .error {
-      color: var(--danger);
-    }
-
-    .viewer-header {
-      align-items: center;
-      display: flex;
-      gap: 14px;
-      justify-content: space-between;
-      margin-bottom: 15px;
-    }
-
-    #fileName {
-      color: #1e3a8a;
-      font-size: 1.1rem;
-      overflow-wrap: anywhere;
-    }
-
-    #openFile {
-      color: var(--blue);
-      font-size: 0.9rem;
-      font-weight: bold;
-      text-decoration: none;
-      white-space: nowrap;
-    }
-
-    #openFile:hover {
-      text-decoration: underline;
-    }
-
-    .pdf-viewer {
-      background: #e2e8f0;
-      border: 1px solid var(--border);
-      border-radius: 9px;
-      height: 660px;
-      width: 100%;
-    }
-
-    .empty-viewer {
-      border: 2px dashed var(--border);
-      border-radius: 9px;
-      color: var(--muted);
-      display: grid;
-      min-height: 450px;
-      padding: 20px;
-      place-items: center;
-      text-align: center;
-    }
-
-    footer {
-      background: #0f172a;
-      color: #cbd5e1;
-      padding: 25px;
-      text-align: center;
-    }
-
-    @media (max-width: 800px) {
-      .navbar {
-        flex-direction: column;
-        padding: 15px 0;
-      }
-
-      .assignment-layout {
-        grid-template-columns: 1fr;
-      }
-
-      .pdf-viewer {
-        height: 500px;
-      }
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: Arial, "Noto Sans Thai", sans-serif; line-height: 1.6; }
+    header { background: linear-gradient(135deg, #1e3a8a, #2563eb); color: white; box-shadow: 0 2px 10px rgba(15, 23, 42, 0.16); }
+    .navbar { align-items: center; display: flex; gap: 20px; justify-content: space-between; margin: auto; min-height: 72px; width: min(1100px, 92%); }
+    .brand { font-size: 1.25rem; font-weight: 800; }
+    .nav-menu { display: flex; gap: 8px; list-style: none; }
+    .nav-button { background: transparent; border: 0; border-radius: 8px; color: white; cursor: pointer; font-size: 1rem; padding: 10px 16px; transition: 0.2s; }
+    .nav-button:hover, .nav-button.active { background: rgba(255, 255, 255, 0.2); }
+    main { margin: auto; min-height: 80vh; padding: 42px 0 70px; width: min(1100px, 92%); }
+    .page { display: none; } .page.active { display: block; }
+    .hero { background: linear-gradient(135deg, #dbeafe, #eff6ff); border: 1px solid #bfdbfe; border-radius: 20px; padding: 72px 25px; text-align: center; }
+    .hero h1 { color: #1e3a8a; font-size: clamp(2rem, 6vw, 3.6rem); margin-bottom: 14px; }
+    .hero p { color: #475569; font-size: 1.08rem; margin: auto; max-width: 650px; }
+    .primary-button, .upload-button { background: var(--blue); border: 0; border-radius: 9px; color: white; cursor: pointer; display: inline-block; font-size: 1rem; font-weight: bold; margin-top: 25px; padding: 12px 20px; text-decoration: none; transition: 0.2s; }
+    .primary-button:hover, .upload-button:hover { background: var(--blue-dark); transform: translateY(-2px); }
+    .page-title { font-size: 2rem; margin-bottom: 5px; }
+    .page-description { color: var(--muted); margin-bottom: 22px; }
+    .assignment-layout { align-items: start; display: grid; gap: 22px; grid-template-columns: 320px 1fr; }
+    .panel { background: var(--white); border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04); padding: 20px; }
+    .panel h2 { font-size: 1.15rem; margin-bottom: 14px; }
+    .file-list { display: grid; gap: 10px; list-style: none; }
+    .file-item { align-items: stretch; display: flex; gap: 7px; }
+    .file-button { background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; color: #1e3a8a; cursor: pointer; flex: 1; font-size: 0.92rem; min-width: 0; overflow-wrap: anywhere; padding: 11px; text-align: left; transition: 0.2s; }
+    .file-button:hover, .file-button.active { background: var(--blue-light); border-color: #60a5fa; }
+    .manage-button { align-items: center; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; color: #1d4ed8; display: flex; font-size: 0.8rem; font-weight: bold; justify-content: center; min-width: 58px; padding: 0 8px; text-decoration: none; transition: 0.2s; }
+    .manage-button:hover { background: #dbeafe; }
+    .upload-button { text-align: center; width: 100%; }
+    .hint { color: var(--muted); font-size: 0.82rem; margin-top: 12px; }
+    .status { color: var(--muted); font-size: 0.9rem; padding: 10px 0; }
+    .viewer-header { align-items: center; display: flex; gap: 14px; justify-content: space-between; margin-bottom: 15px; }
+    #fileName { color: #1e3a8a; font-size: 1.1rem; overflow-wrap: anywhere; }
+    #openFile { color: var(--blue); font-size: 0.9rem; font-weight: bold; text-decoration: none; white-space: nowrap; }
+    #openFile:hover { text-decoration: underline; }
+    .pdf-viewer { background: #e2e8f0; border: 1px solid var(--border); border-radius: 9px; height: 660px; width: 100%; }
+    .empty-viewer { border: 2px dashed var(--border); border-radius: 9px; color: var(--muted); display: grid; min-height: 450px; padding: 20px; place-items: center; text-align: center; }
+    footer { background: #0f172a; color: #cbd5e1; padding: 25px; text-align: center; }
+    @media (max-width: 800px) { .navbar { flex-direction: column; padding: 15px 0; } .assignment-layout { grid-template-columns: 1fr; } .pdf-viewer { height: 500px; } }
   </style>
 </head>
 
@@ -323,14 +55,9 @@
   <header>
     <nav class="navbar">
       <div class="brand">AI101 | เว็บไซต์ส่งงาน</div>
-
       <ul class="nav-menu">
-        <li>
-          <button class="nav-button active" data-page="home">Home</button>
-        </li>
-        <li>
-          <button class="nav-button" data-page="assignments">ส่งงาน</button>
-        </li>
+        <li><button class="nav-button active" data-page="home">Home</button></li>
+        <li><button class="nav-button" data-page="assignments">ส่งงาน</button></li>
       </ul>
     </nav>
   </header>
@@ -339,66 +66,28 @@
     <section id="home" class="page active">
       <div class="hero">
         <h1>ยินดีต้อนรับสู่ AI101</h1>
-        <p>
-          เว็บไซต์รวบรวมไฟล์เอกสาร PDF สำหรับการส่งงาน
-          เลือกเมนู “ส่งงาน” เพื่อดูเอกสารทั้งหมด
-        </p>
-
-        <button class="primary-button" id="goAssignments">
-          ดูไฟล์ส่งงาน
-        </button>
+        <p>เว็บไซต์รวบรวมไฟล์เอกสาร PDF สำหรับการส่งงาน เลือกเมนู “ส่งงาน” เพื่อดูเอกสารทั้งหมด</p>
+        <button class="primary-button" id="goAssignments">ดูไฟล์ส่งงาน</button>
       </div>
     </section>
 
     <section id="assignments" class="page">
       <h1 class="page-title">ส่งงาน PDF</h1>
-      <p class="page-description">
-        กดเลือกชื่อไฟล์เพื่อเปิดดูเอกสาร PDF บนเว็บไซต์
-      </p>
-
+      <p class="page-description">กดเลือกชื่อไฟล์เพื่อเปิดดูเอกสาร PDF บนเว็บไซต์</p>
       <div class="assignment-layout">
         <aside class="panel">
           <h2>ไฟล์งานทั้งหมด</h2>
-
-          <ul id="fileList" class="file-list">
-            <li class="status">กำลังโหลดรายการไฟล์...</li>
-          </ul>
-
-          <a id="uploadButton" class="upload-button" href="#" target="_blank">
-            + อัปโหลดไฟล์ PDF
-          </a>
-
-          <a id="folderButton" class="folder-button" href="#" target="_blank">
-            เปิดโฟลเดอร์ files บน GitHub
-          </a>
-
-          <p class="hint">
-            การอัปโหลดและลบไฟล์ทำผ่าน GitHub เท่านั้น
-            ผู้ที่ไม่มีสิทธิ์แก้ไข Repository จะไม่สามารถอัปโหลดหรือลบไฟล์ได้
-          </p>
+          <ul id="fileList" class="file-list"><li class="status">กำลังโหลดรายการไฟล์...</li></ul>
+          <a id="uploadButton" class="upload-button" href="#" target="_blank">+ ไปหน้าอัปโหลดไฟล์ PDF</a>
+          <p class="hint">การอัปโหลดไฟล์ให้กดปุ่มด้านบน แล้วเลือก "Add file" -> "Upload files" ในหน้า GitHub ของคุณ</p>
         </aside>
-
         <section class="panel">
           <div class="viewer-header">
             <h2 id="fileName">กรุณาเลือกไฟล์ PDF</h2>
-            <a id="openFile" href="#" target="_blank" hidden>
-              เปิดแท็บใหม่ ↗
-            </a>
+            <a id="openFile" href="#" target="_blank" hidden>เปิดแท็บใหม่ ↗</a>
           </div>
-
-          <div id="emptyViewer" class="empty-viewer">
-            <p>
-              ยังไม่มีไฟล์ที่เลือก<br>
-              กรุณาเลือกเอกสารจากรายการด้านซ้าย
-            </p>
-          </div>
-
-          <iframe
-            id="pdfViewer"
-            class="pdf-viewer"
-            title="ตัวแสดงไฟล์ PDF"
-            hidden>
-          </iframe>
+          <div id="emptyViewer" class="empty-viewer"><p>ยังไม่มีไฟล์ที่เลือก<br>กรุณาเลือกเอกสารจากรายการด้านซ้าย</p></div>
+          <iframe id="pdfViewer" class="pdf-viewer" title="ตัวแสดงไฟล์ PDF" hidden></iframe>
         </section>
       </div>
     </section>
@@ -407,156 +96,52 @@
   <footer>© 2026 AI101 | เว็บไซต์ส่งงาน</footer>
 
   <script>
-    // ข้อมูล Repository
     const GITHUB_USERNAME = "natsarutariyautcc-cmd";
     const GITHUB_REPOSITORY = "websiteNatsarutAI101";
     const GITHUB_BRANCH = "main";
     const PDF_FOLDER = "files";
 
-    // ลิงก์ GitHub API สำหรับอ่านรายการไฟล์ในโฟลเดอร์ files
-    const API_URL =
-      `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPOSITORY}` +
-      `/contents/${PDF_FOLDER}?ref=${GITHUB_BRANCH}`;
+    const API_URL = `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPOSITORY}/contents/${PDF_FOLDER}?ref=${GITHUB_BRANCH}`;
+    const UPLOAD_URL = `https://github.com/${GITHUB_USERNAME}/${GITHUB_REPOSITORY}/tree/${GITHUB_BRANCH}/${PDF_FOLDER}`;
 
-    // ลิงก์ไปหน้าอัปโหลดของ GitHub
-    const UPLOAD_URL =
-      `https://github.com/${GITHUB_USERNAME}/${GITHUB_REPOSITORY}` +
-      `/upload/${GITHUB_BRANCH}/${PDF_FOLDER}`;
-
-    // ลิงก์โฟลเดอร์ files บน GitHub
-    const FOLDER_URL =
-      `https://github.com/${GITHUB_USERNAME}/${GITHUB_REPOSITORY}` +
-      `/tree/${GITHUB_BRANCH}/${PDF_FOLDER}`;
-
-    const fileList = document.getElementById("fileList");
-    const pdfViewer = document.getElementById("pdfViewer");
-    const emptyViewer = document.getElementById("emptyViewer");
-    const fileName = document.getElementById("fileName");
-    const openFile = document.getElementById("openFile");
-    const uploadButton = document.getElementById("uploadButton");
-    const folderButton = document.getElementById("folderButton");
-
+    const fileList = document.getElementById("fileList"), pdfViewer = document.getElementById("pdfViewer"), emptyViewer = document.getElementById("emptyViewer"), fileName = document.getElementById("fileName"), openFile = document.getElementById("openFile"), uploadButton = document.getElementById("uploadButton");
     uploadButton.href = UPLOAD_URL;
-    folderButton.href = FOLDER_URL;
 
     function showPage(pageId) {
-      document.querySelectorAll(".page").forEach((page) => {
-        page.classList.remove("active");
-      });
-
-      document.querySelectorAll(".nav-button").forEach((button) => {
-        button.classList.remove("active");
-      });
-
+      document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+      document.querySelectorAll(".nav-button").forEach(b => b.classList.remove("active"));
       document.getElementById(pageId).classList.add("active");
-
-      document
-        .querySelector(`.nav-button[data-page="${pageId}"]`)
-        .classList.add("active");
-
+      document.querySelector(`.nav-button[data-page="${pageId}"]`).classList.add("active");
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    document.querySelectorAll(".nav-button").forEach((button) => {
-      button.addEventListener("click", () => {
-        showPage(button.dataset.page);
-      });
-    });
+    document.querySelectorAll(".nav-button").forEach(b => b.addEventListener("click", () => showPage(b.dataset.page)));
+    document.getElementById("goAssignments").addEventListener("click", () => showPage("assignments"));
 
-    document.getElementById("goAssignments").addEventListener("click", () => {
-      showPage("assignments");
-    });
-
-    function openPdf(title, pdfUrl, selectedButton) {
-      fileName.textContent = title;
-      pdfViewer.src = pdfUrl;
-      pdfViewer.hidden = false;
-      emptyViewer.hidden = true;
-
-      openFile.href = pdfUrl;
-      openFile.hidden = false;
-
-      document.querySelectorAll(".file-button").forEach((button) => {
-        button.classList.remove("active");
-      });
-
-      selectedButton.classList.add("active");
-    }
-
-    function showError(message) {
-      fileList.innerHTML = `
-        <li class="status error">${message}</li>
-      `;
+    function openPdf(title, pdfUrl, btn) {
+      fileName.textContent = title; pdfViewer.src = pdfUrl; pdfViewer.hidden = false; emptyViewer.hidden = true;
+      openFile.href = pdfUrl; openFile.hidden = false;
+      document.querySelectorAll(".file-button").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
     }
 
     async function loadPdfFiles() {
       try {
-        const response = await fetch(API_URL, {
-          headers: {
-            Accept: "application/vnd.github+json"
-          }
-        });
-
-        if (response.status === 404) {
-          showError("ไม่พบโฟลเดอร์ files กรุณาสร้าง files/README.md ใน GitHub ก่อน");
-          return;
-        }
-
-        if (!response.ok) {
-          throw new Error(`GitHub API error: ${response.status}`);
-        }
-
+        const response = await fetch(API_URL);
+        if (!response.ok) throw new Error();
         const files = await response.json();
-
-        const pdfFiles = files
-          .filter((file) => {
-            return file.type === "file" &&
-              file.name.toLowerCase().endsWith(".pdf");
-          })
-          .sort((a, b) => a.name.localeCompare(b.name, "th"));
-
+        const pdfFiles = files.filter(f => f.type === "file" && f.name.toLowerCase().endsWith(".pdf")).sort((a,b) => a.name.localeCompare(b.name, "th"));
         fileList.innerHTML = "";
-
-        if (pdfFiles.length === 0) {
-          fileList.innerHTML = `
-            <li class="status">ยังไม่มีไฟล์ PDF ในโฟลเดอร์ files</li>
-          `;
-          return;
-        }
-
-        pdfFiles.forEach((file) => {
-          const item = document.createElement("li");
-          item.className = "file-item";
-
-          const viewButton = document.createElement("button");
-          viewButton.type = "button";
-          viewButton.className = "file-button";
-          viewButton.textContent = file.name;
-
-          viewButton.addEventListener("click", () => {
-            openPdf(file.name, file.download_url, viewButton);
-          });
-
-          const manageLink = document.createElement("a");
-          manageLink.className = "manage-button";
-          manageLink.href = file.html_url;
-          manageLink.target = "_blank";
-          manageLink.rel = "noopener";
-          manageLink.textContent = "จัดการ";
-          manageLink.title = "เปิด GitHub เพื่อแก้ไขหรือลบไฟล์";
-
-          item.appendChild(viewButton);
-          item.appendChild(manageLink);
-          fileList.appendChild(item);
+        if (pdfFiles.length === 0) { fileList.innerHTML = '<li class="status">ยังไม่มีไฟล์ PDF</li>'; return; }
+        pdfFiles.forEach(file => {
+          const item = document.createElement("li"); item.className = "file-item";
+          const viewBtn = document.createElement("button"); viewBtn.className = "file-button"; viewBtn.textContent = file.name;
+          viewBtn.onclick = () => openPdf(file.name, file.download_url, viewBtn);
+          const manageBtn = document.createElement("a"); manageBtn.className = "manage-button"; manageBtn.href = file.html_url; manageBtn.target = "_blank"; manageBtn.textContent = "จัดการ";
+          item.append(viewBtn, manageBtn); fileList.appendChild(item);
         });
-      } catch (error) {
-        console.error(error);
-        showError(
-          "โหลดรายการไฟล์ไม่สำเร็จ กรุณาตรวจสอบว่า Repository เป็น Public และตั้งชื่อ Repository/Branch ถูกต้อง"
-        );
-      }
+      } catch { fileList.innerHTML = '<li class="status">โหลดรายการไม่สำเร็จ</li>'; }
     }
-
     loadPdfFiles();
   </script>
 </body>
